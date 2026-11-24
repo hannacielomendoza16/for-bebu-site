@@ -1,0 +1,1507 @@
+html
+
+<!doctype html>
+<html lang="en-PH">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#17182a" />
+  <meta name="description" content="A little message for Bubbub: I hope everyday it gets better naman. Lagi kita pinag prapray, Bubbub." />
+  <title>Hello Bubbub — a little message</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --ink: #181a2a;
+      --ink-soft: #62637a;
+      --paper: #f7f4ee;
+      --lavender: #d8d2ff;
+      --lavender-deep: #a89ce9;
+      --coral: #b45240;
+      --coral-deep: #904031;
+      --coral-soft: #ffc7b6;
+      --cream: #fff4d7;
+      --line: rgba(24, 26, 42, 0.14);
+      --serif: "DM Serif Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(circle at 82% 8%, rgba(216, 210, 255, 0.42), transparent 24rem),
+        radial-gradient(circle at 2% 45%, rgba(255, 199, 182, 0.22), transparent 25rem),
+        var(--paper);
+    }
+
+    .ambient {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(1px);
+    }
+
+    .ambient-one {
+      width: 25rem;
+      height: 25rem;
+      left: -15rem;
+      top: 16rem;
+      background: rgba(216, 210, 255, 0.28);
+    }
+
+    .ambient-two {
+      width: 18rem;
+      height: 18rem;
+      right: -8rem;
+      top: 42rem;
+      background: rgba(255, 199, 182, 0.26);
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .14;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 96px));
+      margin-inline: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 30px;
+      padding-bottom: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: end;
+      gap: 3px;
+      height: 17px;
+    }
+
+    .brand-mark span {
+      display: block;
+      width: 4px;
+      border-radius: 5px;
+      background: var(--ink);
+      transform: rotate(35deg);
+    }
+
+    .brand-mark span:first-child {
+      height: 10px;
+      background: var(--coral);
+    }
+
+    .brand-mark span:nth-child(2) {
+      height: 16px;
+    }
+
+    .brand-mark span:last-child {
+      height: 8px;
+      background: var(--lavender-deep);
+    }
+
+    .music-dock {
+      margin-top: 4px;
+    }
+
+    .music-summary {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background: rgba(255, 255, 255, .42);
+      cursor: pointer;
+      list-style: none;
+      transition: background .25s ease, border-color .25s ease;
+    }
+
+    .music-summary::-webkit-details-marker,
+    .music-summary::marker {
+      display: none;
+    }
+
+    .music-summary:hover {
+      border-color: rgba(180, 82, 64, .36);
+      background: rgba(255, 255, 255, .76);
+    }
+
+    .music-summary:focus-visible {
+      outline: 3px solid rgba(180, 82, 64, .28);
+      outline-offset: 4px;
+    }
+
+    .music-disc {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      flex: 0 0 32px;
+      border-radius: 50%;
+      color: var(--paper);
+      background: var(--ink);
+      font-family: var(--serif);
+      font-size: 19px;
+    }
+
+    .music-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .music-kicker {
+      color: var(--coral);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .music-meta strong {
+      overflow: hidden;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .01em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .music-meta em {
+      color: var(--ink-soft);
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .music-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-left: auto;
+      color: var(--ink-soft);
+      font-size: 10px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .music-cta span {
+      color: var(--coral);
+      font-size: 16px;
+    }
+
+    .music-panel {
+      display: grid;
+      grid-template-columns: .72fr 1.28fr;
+      gap: 28px;
+      align-items: center;
+      padding: 24px;
+      color: var(--paper);
+      background: var(--ink);
+    }
+
+    .music-panel-copy .eyebrow {
+      margin-bottom: 14px;
+      color: var(--coral-soft);
+    }
+
+    .music-panel-copy h2 {
+      margin-bottom: 6px;
+      color: var(--paper);
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3vw, 3.2rem);
+      line-height: .95;
+    }
+
+    .music-panel-copy > p:not(.eyebrow) {
+      margin-bottom: 18px;
+      color: rgba(247, 244, 238, .62);
+      font-size: 12px;
+    }
+
+    .music-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--coral-soft);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .music-link:hover {
+      color: white;
+    }
+
+    .music-link span {
+      font-size: 15px;
+    }
+
+    .spotify-embed {
+      display: block;
+      width: 100%;
+      min-height: 152px;
+      overflow: hidden;
+      border: 0;
+      border-radius: 12px;
+    }
+
+    .spotify-embed iframe {
+      display: block;
+      width: 100%;
+      min-height: 152px;
+      border: 0;
+      border-radius: 12px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(360px, .9fr);
+      gap: 5rem;
+      align-items: center;
+      padding-top: 78px;
+      padding-bottom: 112px;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 23px;
+      color: var(--coral);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-line {
+      display: block;
+      width: 31px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    h1,
+    h2,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2 {
+      font-weight: 400;
+      letter-spacing: -.045em;
+    }
+
+    h1 {
+      max-width: 670px;
+      margin-bottom: 27px;
+      font-size: clamp(4rem, 7.1vw, 6.9rem);
+      line-height: .93;
+    }
+
+    h1 em,
+    h2 em {
+      color: var(--coral);
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -.04em;
+    }
+
+    .hero-intro {
+      max-width: 440px;
+      margin-bottom: 30px;
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-height: 48px;
+      border: 0;
+      border-radius: 100px;
+      padding: 0 22px;
+      font-size: 12px;
+      letter-spacing: .06em;
+      font-weight: 700;
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .button:focus-visible,
+    .reminder-card:focus-visible {
+      outline: 3px solid rgba(244, 127, 105, .38);
+      outline-offset: 4px;
+    }
+
+    .button-primary {
+      color: var(--paper);
+      background: var(--ink);
+      box-shadow: 0 12px 24px rgba(24, 26, 42, .12);
+    }
+
+    .button-primary:hover {
+      box-shadow: 0 16px 30px rgba(24, 26, 42, .17);
+    }
+
+    .button-ghost {
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid var(--line);
+    }
+
+    .button-ghost:hover {
+      background: rgba(255, 255, 255, .48);
+    }
+
+    .sparkle {
+      color: var(--coral);
+      font-size: 16px;
+      line-height: 0;
+    }
+
+    .microcopy {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 25px 0 0;
+      color: var(--ink-soft);
+      font-size: 11px;
+    }
+
+    .microcopy span {
+      color: var(--coral);
+      font-size: 16px;
+    }
+
+    .hero-art {
+      min-height: 500px;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .note-card {
+      position: relative;
+      z-index: 2;
+      width: min(100%, 355px);
+      min-height: 390px;
+      padding: 54px 44px 36px;
+      transform: rotate(5deg);
+      background: var(--cream);
+      box-shadow: 22px 25px 0 rgba(24, 26, 42, .06), 0 18px 45px rgba(24, 26, 42, .12);
+    }
+
+    .note-card::after {
+      content: "";
+      position: absolute;
+      right: 23px;
+      bottom: 19px;
+      width: 54px;
+      height: 1px;
+      background: rgba(24, 26, 42, .24);
+      transform: rotate(-36deg);
+    }
+
+    .note-tape {
+      position: absolute;
+      top: -17px;
+      left: 50%;
+      width: 101px;
+      height: 40px;
+      background: rgba(255, 196, 180, .66);
+      transform: translateX(-50%) rotate(-3deg);
+    }
+
+    .note-label {
+      color: var(--coral);
+      font-size: 10px;
+      letter-spacing: .17em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .note-message {
+      margin: 45px 0 27px;
+      font-family: var(--serif);
+      font-size: 55px;
+      line-height: .93;
+      letter-spacing: -.04em;
+    }
+
+    .note-message span {
+      color: var(--coral);
+    }
+
+    .note-divider {
+      width: 47px;
+      height: 2px;
+      margin-bottom: 20px;
+      background: var(--coral);
+    }
+
+    .note-small {
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .note-signature {
+      margin-top: 22px;
+      color: var(--coral);
+      font-size: 25px;
+      transform: rotate(-14deg);
+    }
+
+    .orbit {
+      position: absolute;
+      border: 1px solid rgba(168, 156, 233, .48);
+      border-radius: 50%;
+      transform: rotate(-28deg);
+    }
+
+    .orbit-one {
+      width: 440px;
+      height: 285px;
+    }
+
+    .orbit-two {
+      width: 390px;
+      height: 485px;
+      transform: rotate(33deg);
+      border-color: rgba(244, 127, 105, .4);
+    }
+
+    .star {
+      position: absolute;
+      z-index: 3;
+      color: var(--coral);
+      font-size: 32px;
+      animation: float 4.5s ease-in-out infinite;
+    }
+
+    .star-one {
+      top: 64px;
+      right: 44px;
+    }
+
+    .star-two {
+      bottom: 60px;
+      left: 47px;
+      color: var(--lavender-deep);
+      font-size: 24px;
+      animation-delay: -2s;
+    }
+
+    .tiny-heart {
+      position: absolute;
+      z-index: 3;
+      top: 93px;
+      left: 67px;
+      color: var(--coral);
+      font-size: 17px;
+      transform: rotate(-18deg);
+    }
+
+    .date-stamp {
+      position: absolute;
+      bottom: 47px;
+      right: 22px;
+      color: var(--ink-soft);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      line-height: 1.5;
+      text-align: center;
+      transform: rotate(-8deg);
+      text-transform: uppercase;
+    }
+
+    .date-stamp span {
+      color: var(--coral);
+      font-size: 8px;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(0);
+      }
+
+      50% {
+        transform: translateY(-9px) rotate(7deg);
+      }
+    }
+
+    .quote-strip {
+      color: var(--paper);
+      background: var(--ink);
+    }
+
+    .quote-inner {
+      display: flex;
+      align-items: center;
+      gap: 29px;
+      padding-top: 32px;
+      padding-bottom: 32px;
+    }
+
+    .quote-mark {
+      align-self: flex-start;
+      color: var(--coral-soft);
+      font-family: var(--serif);
+      font-size: 65px;
+      line-height: .6;
+    }
+
+    .quote-inner p {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(25px, 3vw, 38px);
+      letter-spacing: -.025em;
+    }
+
+    .quote-rule {
+      width: 52px;
+      height: 1px;
+      background: rgba(255, 255, 255, .28);
+    }
+
+    .quote-aside {
+      color: rgba(255, 255, 255, .58);
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .quote-aside em {
+      color: var(--coral-soft);
+      font-family: var(--serif);
+      font-size: 14px;
+    }
+
+    .letter-section {
+      padding-top: 125px;
+      padding-bottom: 137px;
+    }
+
+    .section-kicker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 39px;
+      color: var(--ink-soft);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .section-kicker > span:first-child {
+      color: var(--coral);
+    }
+
+    .kicker-line {
+      display: block;
+      width: 47px;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .letter-layout {
+      display: grid;
+      grid-template-columns: .75fr 1.25fr;
+      gap: 7rem;
+      align-items: start;
+    }
+
+    .letter-heading .love-heading {
+      max-width: 385px;
+      font-size: clamp(2.2rem, 3.2vw, 3.7rem);
+    }
+
+    .side-note {
+      padding-left: 20px;
+      border-left: 2px solid var(--coral-soft);
+      color: var(--ink-soft);
+      font-size: 11px;
+      line-height: 1.75;
+    }
+
+    .letter-card {
+      position: relative;
+      max-width: 635px;
+      padding: 56px 64px 46px;
+      border: 1px solid rgba(24, 26, 42, .08);
+      background: rgba(255, 255, 255, .58);
+      box-shadow: 0 25px 60px rgba(24, 26, 42, .055);
+    }
+
+    .letter-card::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 16px;
+      height: 16px;
+      border-top: 1px solid var(--coral);
+      border-right: 1px solid var(--coral);
+    }
+
+    .letter-card p {
+      margin-bottom: 21px;
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .letter-card > p:first-child {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 25px;
+    }
+
+    .letter-card strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .letter-card .letter-close {
+      padding-top: 13px;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 23px;
+      line-height: 1.35;
+    }
+
+    .letter-close em {
+      color: var(--coral);
+    }
+
+    .letter-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 43px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--ink-soft);
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .heart-line {
+      color: var(--coral);
+      font-size: 13px;
+      letter-spacing: .14em;
+    }
+
+    .reset-section {
+      padding-bottom: 125px;
+    }
+
+    .reset-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 415px;
+      overflow: hidden;
+      background: var(--lavender);
+    }
+
+    .reset-copy {
+      padding: 64px 67px;
+    }
+
+    .section-kicker.warm {
+      color: rgba(24, 26, 42, .74);
+    }
+
+    .section-kicker.warm > span:first-child {
+      color: var(--coral-deep);
+    }
+
+    .reset-copy h2 {
+      margin-bottom: 19px;
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: .94;
+    }
+
+    .reset-copy h2 em {
+      color: var(--coral-deep);
+    }
+
+    .reset-copy p {
+      max-width: 290px;
+      margin-bottom: 30px;
+      color: rgba(24, 26, 42, .65);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .button-light {
+      color: var(--ink);
+      background: var(--paper);
+      box-shadow: 0 9px 20px rgba(24, 26, 42, .08);
+    }
+
+    .button-light:hover {
+      background: white;
+    }
+
+    .breath-visual {
+      display: grid;
+      place-items: center;
+      align-content: center;
+      position: relative;
+      background: rgba(255, 255, 255, .24);
+    }
+
+    .breath-ring {
+      display: grid;
+      place-items: center;
+      width: 210px;
+      height: 210px;
+      border: 1px solid rgba(24, 26, 42, .2);
+      border-radius: 50%;
+    }
+
+    .breath-core {
+      display: grid;
+      place-items: center;
+      width: 148px;
+      height: 148px;
+      border-radius: 50%;
+      color: var(--paper);
+      background: var(--ink);
+      box-shadow: 0 12px 27px rgba(24, 26, 42, .15);
+      transition: transform 4s cubic-bezier(.45, 0, .2, 1), background .4s ease;
+    }
+
+    .breath-core span {
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .breath-core.is-breathing {
+      transform: scale(1.23);
+      background: var(--coral);
+    }
+
+    .breath-visual p {
+      margin: 24px 0 0;
+      color: rgba(24, 26, 42, .65);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .closing {
+      padding-top: 45px;
+      padding-bottom: 117px;
+      text-align: center;
+    }
+
+    .closing-rule {
+      width: 1px;
+      height: 68px;
+      margin: 0 auto 42px;
+      background: var(--coral);
+    }
+
+    .closing .eyebrow {
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    .closing h2 {
+      margin-bottom: 25px;
+      font-size: clamp(3.4rem, 6.5vw, 6.5rem);
+      line-height: .9;
+    }
+
+    .closing-copy {
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .reminder-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 17px;
+      max-width: 480px;
+      margin-top: 18px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      background: rgba(255, 255, 255, .42);
+      text-align: left;
+      transition: background .25s ease, transform .25s ease;
+    }
+
+    .reminder-card:hover {
+      background: white;
+      transform: translateY(-3px);
+    }
+
+    .reminder-icon {
+      color: var(--coral);
+      font-size: 21px;
+    }
+
+    #closing-reminder-text {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .reminder-arrow {
+      margin-left: auto;
+      color: var(--coral);
+      font-size: 20px;
+    }
+
+    .site-footer {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 19px;
+      padding-bottom: 26px;
+      border-top: 1px solid var(--line);
+      color: var(--ink-soft);
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .site-footer span:nth-child(2) {
+      color: var(--coral);
+      font-size: 15px;
+    }
+
+    @media (max-width: 850px) {
+      .container {
+        width: min(100% - 48px, 650px);
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-top: 58px;
+        padding-bottom: 78px;
+      }
+
+      .hero-art {
+        min-height: 455px;
+      }
+
+      .letter-layout {
+        gap: 45px;
+        grid-template-columns: 1fr;
+      }
+
+      .music-panel {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .letter-heading h2 {
+        max-width: 500px;
+      }
+
+      .letter-card {
+        max-width: none;
+      }
+
+      .reset-card {
+        grid-template-columns: 1fr;
+      }
+
+      .reset-copy {
+        padding-bottom: 50px;
+      }
+
+      .breath-visual {
+        min-height: 380px;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .container {
+        width: calc(100% - 36px);
+      }
+
+      .site-header {
+        padding-top: 21px;
+      }
+
+      .header-note {
+        display: none;
+      }
+
+      .music-cta {
+        font-size: 0;
+      }
+
+      .music-cta span {
+        font-size: 17px;
+      }
+
+      h1 {
+        font-size: clamp(3.45rem, 16vw, 5rem);
+      }
+
+      .hero-intro {
+        font-size: 14px;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .microcopy {
+        align-items: flex-start;
+        line-height: 1.5;
+      }
+
+      .hero-art {
+        min-height: 400px;
+        transform: scale(.87);
+        margin-block: -22px;
+      }
+
+      .note-card {
+        min-height: 350px;
+        padding: 43px 34px 28px;
+      }
+
+      .note-message {
+        margin-top: 39px;
+        font-size: 48px;
+      }
+
+      .orbit-one {
+        width: 370px;
+        height: 245px;
+      }
+
+      .orbit-two {
+        width: 330px;
+        height: 420px;
+      }
+
+      .quote-inner {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 15px 17px;
+        padding-top: 27px;
+        padding-bottom: 29px;
+      }
+
+      .quote-mark {
+        font-size: 50px;
+      }
+
+      .quote-rule {
+        display: none;
+      }
+
+      .quote-aside {
+        width: 100%;
+        padding-left: 37px;
+      }
+
+      .letter-section {
+        padding-top: 78px;
+        padding-bottom: 87px;
+      }
+
+      .letter-card {
+        padding: 41px 29px 34px;
+      }
+
+      .letter-card p {
+        font-size: 14px;
+      }
+
+      .letter-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .reset-section {
+        padding-bottom: 82px;
+      }
+
+      .reset-copy {
+        padding: 43px 29px 47px;
+      }
+
+      .breath-visual {
+        min-height: 330px;
+      }
+
+      .closing {
+        padding-bottom: 84px;
+      }
+
+      .closing h2 {
+        font-size: clamp(3.2rem, 15vw, 5rem);
+      }
+
+      .reminder-card {
+        align-items: flex-start;
+      }
+
+      .site-footer {
+        align-items: center;
+        gap: 13px;
+        flex-wrap: wrap;
+        line-height: 1.5;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="site-header container">
+      <a class="brand" href="#top" aria-label="For Bubbub, back to top">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>for Bubbub</span>
+      </a>
+    </header>
+
+    <details class="music-dock container">
+      <summary class="music-summary">
+        <span class="music-disc" aria-hidden="true">♫</span>
+        <span class="music-meta">
+          <span class="music-kicker">our song</span>
+          <strong>You Make It Right <em>· Amiel Sol</em></strong>
+        </span>
+        <span class="music-cta">tap to play <span aria-hidden="true">↗</span></span>
+      </summary>
+
+      <div class="music-panel">
+        <div class="music-panel-copy">
+          <p class="eyebrow">now playing</p>
+          <h2>You Make It Right</h2>
+          <p>Amiel Sol</p>
+          <a class="music-link" href="https://open.spotify.com/track/4hvxN4lQyBT1IlmVtoPp0D?si=62ce9f8591ef4efb" target="_blank" rel="noopener noreferrer">
+            open in Spotify <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="spotify-embed" id="spotify-player" role="region" aria-label="Spotify player for You Make It Right by Amiel Sol">
+          <noscript>
+            <a href="https://open.spotify.com/track/4hvxN4lQyBT1IlmVtoPp0D?si=62ce9f8591ef4efb" target="_blank" rel="noopener noreferrer">
+              Play You Make It Right on Spotify
+            </a>
+          </noscript>
+        </div>
+      </div>
+    </details>
+
+    <main id="top">
+      <section class="hero container" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="eyebrow-line" aria-hidden="true"></span>
+            for my Bubbub
+          </p>
+
+          <h1 id="hero-title">Hello<br /><em>Bubbub.</em></h1>
+
+          <p class="hero-intro">
+            Hello my Bebu, How are you my love? I prepared something na I hope would atleast lift up your mood ehehehe. But first make sure na play mo yung bg music hahaha
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#letter">
+              Read my message <span aria-hidden="true">↓</span>
+            </a>
+
+            <button class="button button-ghost" type="button" id="reminder-button">
+              A little reminder <span class="sparkle" aria-hidden="true">✦</span>
+            </button>
+          </div>
+
+          <p class="microcopy">
+            <span aria-hidden="true">✿</span>
+            Lagi kita pinag prapray, Bubbub.
+          </p>
+        </div>
+
+        <div class="hero-art" aria-label="A handwritten reminder for Bubbub" role="img">
+          <div class="orbit orbit-one" aria-hidden="true"></div>
+          <div class="orbit orbit-two" aria-hidden="true"></div>
+          <div class="star star-one" aria-hidden="true">✦</div>
+          <div class="star star-two" aria-hidden="true">✧</div>
+          <div class="tiny-heart" aria-hidden="true">♥</div>
+
+          <div class="note-card">
+            <div class="note-tape" aria-hidden="true"></div>
+            <p class="note-label">for Bubbub</p>
+            <p class="note-message">Hello<br /><span>Bubbub.</span></p>
+            <div class="note-divider" aria-hidden="true"></div>
+            <p class="note-small">you are doing great.<br />one day at a time.</p>
+            <div class="note-signature">♡</div>
+          </div>
+
+          <div class="date-stamp">
+            MAHAL NA MAHAL KITA<br />
+            <span>always here</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="quote-strip" aria-label="A reminder">
+        <div class="container quote-inner">
+          <span class="quote-mark" aria-hidden="true">“</span>
+          <p>Andito lang ako palagi.</p>
+          <span class="quote-rule" aria-hidden="true"></span>
+          <span class="quote-aside">
+            kahit nakakapagod na,<br />
+            <em>hindi mo kailangang mag-isa.</em>
+          </span>
+        </div>
+      </section>
+
+      <section class="letter-section container" id="letter" aria-labelledby="letter-title">
+        <div class="section-kicker">
+          <span>01</span>
+          <span class="kicker-line" aria-hidden="true"></span>
+          <span>a note for you</span>
+        </div>
+
+        <div class="letter-layout">
+          <div class="letter-heading">
+            <p class="eyebrow">Hi my super pogi,</p>
+
+            <h2 id="letter-title" class="love-heading">
+              Macho, gwapo, super kind, generous, brainy, soft spoken, super fine darling kong mestizo na love na love ako.
+            </h2>
+
+            <p class="side-note">
+              walang bola jan haaaa.<br />
+              <strong>lahat yan FACTS!</strong>
+            </p>
+          </div>
+
+          <article class="letter-card">
+            <p>Hello Bubbub.</p>
+
+            <p>How are you? I hope everyday it gets better naman?</p>
+
+            <p>
+              Lagi kita pinag prapray, Bubbub. Pag nakakapagod na,
+              <strong>andito lang ako palagi.</strong>
+            </p>
+
+            <p>
+              Mahal na mahal kita and don't worry, di ako mawawala sayo habang inaayos mo problems mo.
+              Andito lang ako, baby.
+            </p>
+
+            <p>
+              Hindi kita iiwan kahit mahirap yung sitwasyon.
+              This too shall pass. :&gt;
+            </p>
+
+            <p>
+              Ang hirap ng malayo sayo feel ko wala ako magawa to help you.
+              But I hope napangiti ka nito atleast? hahahaha.
+              First time ko ginawa to e HAHAHA.
+            </p>
+
+            <p class="letter-close">
+              Miss ko na boses mo, Bubb.<br />
+              <em>I miss everything about youuuu.</em><br />
+              Movie ulit tayo sooooon!
+            </p>
+
+            <div class="letter-footer">
+              <span>From your baddie latina princess hahahhaa</span>
+              <span class="heart-line" aria-hidden="true">— ♥ —</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="reset-section container" id="reset" aria-labelledby="reset-title">
+        <div class="reset-card">
+          <div class="reset-copy">
+            <div class="section-kicker warm">
+              <span>02</span>
+              <span class="kicker-line" aria-hidden="true"></span>
+              <span>a tiny reset</span>
+            </div>
+
+            <h2 id="reset-title">
+              Pag nakakapagod na,<br />
+              <em>hinga muna.</em>
+            </h2>
+
+            <p>You don't have to fix everything at once, baby.</p>
+
+            <button class="button button-light" type="button" id="breath-button">
+              Take one with me <span aria-hidden="true">→</span>
+            </button>
+          </div>
+
+          <div class="breath-visual" aria-live="polite">
+            <div class="breath-ring">
+              <div class="breath-core" id="breath-core">
+                <span id="breath-label">ready?</span>
+              </div>
+            </div>
+            <p id="breath-instruction">Press the button when you're ready.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing container" aria-labelledby="closing-title">
+        <div class="closing-rule" aria-hidden="true"></div>
+        <p class="eyebrow">one more thing</p>
+
+        <h2 id="closing-title">
+          Mahal na mahal kita.<br />
+          <em>Andito lang ako.</em>
+        </h2>
+
+        <p class="closing-copy">You are always worth the fight my love.</p>
+
+        <button class="reminder-card" type="button" id="closing-reminder" aria-live="polite">
+          <span class="reminder-icon" aria-hidden="true">✦</span>
+          <span id="closing-reminder-text">Di ako mawawala sayo.</span>
+          <span class="reminder-arrow" aria-hidden="true">↗</span>
+        </button>
+      </section>
+    </main>
+
+    <footer class="site-footer container">
+      <span>for Bubbub, always</span>
+      <span aria-hidden="true">✦</span>
+      <span>with all my love</span>
+    </footer>
+  </div>
+
+  <script>
+    const spotifyPlayer = document.querySelector('#spotify-player');
+    const spotifyTrackUri = 'spotify:track:4hvxN4lQyBT1IlmVtoPp0D';
+    const spotifyChorusStart = 62;
+
+    if (spotifyPlayer) {
+      window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        const options = {
+          width: '100%',
+          height: '152',
+          uri: spotifyTrackUri
+        };
+
+        IFrameAPI.createController(spotifyPlayer, options, (EmbedController) => {
+          EmbedController.loadEntity(
+            spotifyTrackUri,
+            false,
+            spotifyChorusStart
+          );
+        });
+      };
+
+      const spotifyApiScript = document.createElement('script');
+      spotifyApiScript.src = 'https://open.spotify.com/embed/iframe-api/v1';
+      spotifyApiScript.async = true;
+      document.head.appendChild(spotifyApiScript);
+    }
+
+    const reminderButton = document.querySelector('#reminder-button');
+    const closingReminder = document.querySelector('#closing-reminder');
+    const closingReminderText = document.querySelector('#closing-reminder-text');
+    const breathButton = document.querySelector('#breath-button');
+    const breathCore = document.querySelector('#breath-core');
+    const breathLabel = document.querySelector('#breath-label');
+    const breathInstruction = document.querySelector('#breath-instruction');
+
+    const reminders = [
+      'Lagi kita pinag prapray, Bubbub.',
+      'Pag nakakapagod na, andito lang ako palagi.',
+      'Mahal na mahal kita.',
+      'Di ako mawawala sayo habang inaayos mo problems mo.',
+      'Miss ko na boses mo, Bubb.'
+    ];
+
+    let reminderIndex = 0;
+    let breathRunning = false;
+    let breathTimer;
+
+    function showReminder() {
+      reminderIndex = (reminderIndex + 1) % reminders.length;
+      const nextReminder = reminders[reminderIndex];
+
+      closingReminderText.animate(
+        [
+          { opacity: 0, transform: 'translateY(5px)' },
+          { opacity: 1, transform: 'translateY(0)' }
+        ],
+        { duration: 320, easing: 'ease-out' }
+      );
+
+      closingReminderText.textContent = nextReminder;
+      closingReminder.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+
+    reminderButton.addEventListener('click', () => {
+      reminderButton.innerHTML = 'You’ve got this <span class="sparkle" aria-hidden="true">✦</span>';
+
+      reminderButton.animate(
+        [
+          { transform: 'scale(1)' },
+          { transform: 'scale(1.04)' },
+          { transform: 'scale(1)' }
+        ],
+        { duration: 500, easing: 'ease-out' }
+      );
+
+      showReminder();
+    });
+
+    closingReminder.addEventListener('click', showReminder);
+
+    function finishBreath() {
+      breathCore.classList.remove('is-breathing');
+      breathLabel.textContent = 'ready?';
+      breathInstruction.textContent = 'That was enough for now.';
+      breathButton.innerHTML = 'Take another <span aria-hidden="true">→</span>';
+      breathRunning = false;
+    }
+
+    breathButton.addEventListener('click', () => {
+      if (breathRunning) return;
+
+      breathRunning = true;
+      breathButton.innerHTML = 'Stay with it <span aria-hidden="true">•</span>';
+      breathLabel.textContent = 'inhale';
+      breathInstruction.textContent = 'Breathe in slowly…';
+      breathCore.classList.add('is-breathing');
+
+      breathTimer = window.setTimeout(() => {
+        breathLabel.textContent = 'exhale';
+        breathInstruction.textContent = 'Now let it go gently…';
+        breathCore.classList.remove('is-breathing');
+        breathTimer = window.setTimeout(finishBreath, 4000);
+      }, 4000);
+    });
+
+    window.addEventListener('pagehide', () => {
+      window.clearTimeout(breathTimer);
+    });
+  </script>
+</body>
+</html>
